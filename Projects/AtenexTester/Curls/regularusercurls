@@ -1,0 +1,49 @@
+
+
+# Get Token
+curl -X POST http://127.0.0.1:8000/api/token/ \
+-H "Content-Type: application/json" \
+-d '{
+      "email": "newregularuser_9857492580@example.com",
+      "password": "SecurePasswordForNewUser!"
+    }'
+
+# Test User Creation (Should be denied)
+curl -X POST http://127.0.0.1:8000/api/users/ \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4NzY5NjU2LCJpYXQiOjE3Mjg3NjYwNTYsImp0aSI6ImNhY2ZmZTAwMWRjNjQyMjZiZTI5NTc0NGI0MDlkOGUxIiwidXNlcl9pZCI6IjlhZTVmMDQxLTc0N2ItNGJiNC1iMGM2LTEwMTQ5NDUxZjBkOCJ9.b4NDiz8-z7Pt_AqlYCyEZKHboTSufhrfJju-rNvFurs" \
+-H "Content-Type: application/json" \
+-d '{
+      "email": "AMAIANN@example.com",
+      "first_name": "Testddd",
+      "last_name": "Usddder",
+      "password": "SecurePdddassword123!",
+      "role": "regular_user"
+    }'
+
+
+# Create an agent
+curl -X POST http://127.0.0.1:8000/api/agents/ \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4NzY5NjU2LCJpYXQiOjE3Mjg3NjYwNTYsImp0aSI6ImNhY2ZmZTAwMWRjNjQyMjZiZTI5NTc0NGI0MDlkOGUxIiwidXNlcl9pZCI6IjlhZTVmMDQxLTc0N2ItNGJiNC1iMGM2LTEwMTQ5NDUxZjBkOCJ9.b4NDiz8-z7Pt_AqlYCyEZKHboTSufhrfJju-rNvFurs" \
+-d '{
+    "device_type": "computer",
+    "operating_system": "Windows",
+    "agent_version": "1.0.0"
+}'
+
+
+# Send Logs
+curl -X POST http://127.0.0.1:8000/api/logs/ \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4NzY5NjU2LCJpYXQiOjE3Mjg3NjYwNTYsImp0aSI6ImNhY2ZmZTAwMWRjNjQyMjZiZTI5NTc0NGI0MDlkOGUxIiwidXNlcl9pZCI6IjlhZTVmMDQxLTc0N2ItNGJiNC1iMGM2LTEwMTQ5NDUxZjBkOCJ9.b4NDiz8-z7Pt_AqlYCyEZKHboTSufhrfJju-rNvFurs" \
+-d '{
+    "agent": "2911e858-9445-445c-b6f8-dc7c68ce0765",
+    "alert_or_event": "event",
+    "log_type": "url",
+    "key_field": "https://danger33.com",
+    "description": "User visited example.com",
+    "additional_data": {
+        "referrer": "google.com",
+        "user_agent": "Mozilla/5.0"
+    }
+}'

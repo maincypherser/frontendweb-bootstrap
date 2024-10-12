@@ -1,0 +1,95 @@
+curl -X POST http://127.0.0.1:8000/api/token/ \
+-H "Content-Type: application/json" \
+-d '{
+      "email": "neworgadmin_1727959093@example.com",
+      "password": "SecurePasswordForOrgAdmin!"
+    }'
+
+
+#create regular user
+
+curl -X POST http://127.0.0.1:8000/api/users/ \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4NTA0MzE1LCJpYXQiOjE3Mjg1MDA3MTUsImp0aSI6Ijc5ZTYzYmMzYjJkYTRiMzdhZDk1ODk3YjYzY2I4YmQxIiwidXNlcl9pZCI6ImZmMDg3MWFlLWM0NzUtNDk2NC05YzM3LWQ3ZTFhZWRhMzVjOCJ9.zWYpYQYORFtccjv5NufJVP9my3DpchQ-iyqa4qbfHK0" \
+-H "Content-Type: application/json" \
+-d '{
+      "email": "XXXXXX@masters.com",
+      "first_name": "RdXSXEF",
+      "last_name": "ff",
+      "password": "EERRR!",
+      "role": "regular_user"
+    }'
+
+# Assign a policy
+
+curl -X POST "http://127.0.0.1:8000/api/users/80afb758-bd58-4bba-842f-1907aa6898a0/assign_policy/" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4NTA0MzE1LCJpYXQiOjE3Mjg1MDA3MTUsImp0aSI6Ijc5ZTYzYmMzYjJkYTRiMzdhZDk1ODk3YjYzY2I4YmQxIiwidXNlcl9pZCI6ImZmMDg3MWFlLWM0NzUtNDk2NC05YzM3LWQ3ZTFhZWRhMzVjOCJ9.zWYpYQYORFtccjv5NufJVP9my3DpchQ-iyqa4qbfHK0" \
+-H "Content-Type: application/json" \
+-d '{
+    "policy_id": 1
+}'
+
+
+# create a new policy
+
+# Strict Business Policy
+curl -X POST http://localhost:8000/api/policies/ \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4NTAwMTQ5LCJpYXQiOjE3Mjg0OTY1NDksImp0aSI6ImRjMmYwZWQ2ZDc3NTQ2MjliMGJlOWZiNzNiZjYwNjkwIiwidXNlcl9pZCI6ImZmMDg3MWFlLWM0NzUtNDk2NC05YzM3LWQ3ZTFhZWRhMzVjOCJ9.9hP-Wo6h5gNDnff3DPNOvrGQbYq9BJW3jw8PJqHUYmI" \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Strict Business",
+  "description": "Blocks risky URLs (e.g., phishing, malware), monitors config changes.",
+  "policy_type": "default",
+  "editable": false,
+  "blocked_url_categories": ["Phishing", "Malware", "Gambling", "Adult Content"],
+  "custom_blocked_urls": [],
+  "blocked_phone_categories": ["Scam", "Spam"],
+  "custom_blocked_phone_numbers": [],
+  "static_web_analysis_categories": ["Phishing", "Malware"],
+  "ai_web_analysis_enabled": true,
+  "identity_monitoring_enabled": true,
+  "configuration_monitoring": "strict"
+}'
+
+
+# Family Setup Policy
+curl -X POST http://localhost:8000/api/policies/ \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4NTAwMTQ5LCJpYXQiOjE3Mjg0OTY1NDksImp0aSI6ImRjMmYwZWQ2ZDc3NTQ2MjliMGJlOWZiNzNiZjYwNjkwIiwidXNlcl9pZCI6ImZmMDg3MWFlLWM0NzUtNDk2NC05YzM3LWQ3ZTFhZWRhMzVjOCJ9.9hP-Wo6h5gNDnff3DPNOvrGQbYq9BJW3jw8PJqHUYmI" \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Family Setup",
+  "description": "Blocks adult/gambling sites, monitors web activity.",
+  "policy_type": "default",
+  "editable": false,
+  "blocked_url_categories": ["Adult Content", "Gambling"],
+  "custom_blocked_urls": [],
+  "blocked_phone_categories": ["Scam", "Spam", "Telemarketer"],
+  "custom_blocked_phone_numbers": [],
+  "static_web_analysis_categories": ["Phishing"],
+  "ai_web_analysis_enabled": true,
+  "identity_monitoring_enabled": true,
+  "configuration_monitoring": "relaxed"
+}'
+
+# Basic Protection Policy
+curl -X POST http://localhost:8000/api/policies/ \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4NTAwMTQ5LCJpYXQiOjE3Mjg0OTY1NDksImp0aSI6ImRjMmYwZWQ2ZDc3NTQ2MjliMGJlOWZiNzNiZjYwNjkwIiwidXNlcl9pZCI6ImZmMDg3MWFlLWM0NzUtNDk2NC05YzM3LWQ3ZTFhZWRhMzVjOCJ9.9hP-Wo6h5gNDnff3DPNOvrGQbYq9BJW3jw8PJqHUYmI" \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Basic Protection",
+  "description": "Only blocks highly risky URLs and numbers.",
+  "policy_type": "default",
+  "editable": false,
+  "blocked_url_categories": ["Phishing", "Malware"],
+  "custom_blocked_urls": [],
+  "blocked_phone_categories": ["Scam", "Spam"],
+  "custom_blocked_phone_numbers": [],
+  "static_web_analysis_categories": ["Phishing"],
+  "ai_web_analysis_enabled": false,
+  "identity_monitoring_enabled": false,
+  "configuration_monitoring": "monitored"
+}'
+
+
+
+
+

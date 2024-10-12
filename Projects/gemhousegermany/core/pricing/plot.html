@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diamond Prices</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Diamond Prices</h1>
+    <div id="plot"></div>
+
+    <script>
+        async function fetchPlot() {
+            const shape = 'Round';
+            const response = await fetch(`/price-engine/plot/${shape}/`);
+            const data = await response.json();
+            const graphJson = data.graph;
+
+            const graph = JSON.parse(graphJson);
+            Plotly.react('plot', graph.data, graph.layout);
+        }
+
+        fetchPlot();
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 50px;
+}
+
+.block-message {
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
